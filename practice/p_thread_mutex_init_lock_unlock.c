@@ -22,3 +22,41 @@
  init 함수를 사용해 동적할당 하여 초기화 하는 방법이 있다.
  보통 후자를 많이 사용한다.
  */
+
+#include <pthread.h>
+#include <stdio.h>
+#include <unistd.H>
+#include <stdlib.h>
+
+int	cnt;
+pthread_mutex_t mutex;
+
+void	*count(void *arg)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	name = (char *)arg;
+	pthread_mutex_lock(&mutex);
+	while (i < 10)
+	{
+		printf("%s cnt : %d \n", name, cnt);
+		i++;
+		usleep(1);
+	}
+	pthread_mutex_unlock(&mutex);
+}
+
+int	main(void)
+{
+	pthread_t thread1;
+	pthread_t thread2;
+
+	pthread_mutex_init(&mutex, NULL);
+	pthread_create(&thread1, NULL, count, (void *)"thread1");
+	pthread_create(&thread2, NULL, count, (void *)"thread2");
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
+	pthread_destory(&mutex);
+}
