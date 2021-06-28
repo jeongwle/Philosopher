@@ -1,6 +1,8 @@
 NAME	= philo
 
-SRCS	= ./
+SRCS	= ./main.c \
+		  ./ft_usleep.c \
+		  ./utils.c
 
 
 
@@ -9,10 +11,11 @@ RM		= rm -f
 CC		= gcc
 
 .c.o :
-	$(CC) -lpthread -c -o $@ $<
+	$(CC) -g -c -o $@ $<
 
 $(NAME) : $(OBJS)
-	$(CC) -lpthread - o $@ $^
+	$(CC) -lpthread -o $@ $^
+#	$(CC) -fsanitize=address -g2 -lpthread -o $@ $^
 
 all : $(NAME)
 
