@@ -1,22 +1,20 @@
 NAME	= philo
 
 SRCS	= ./main.c \
-		  ./ft_usleep.c \
-		  ./print.c \
+		  ./init.c \
+		  ./fork.c \
 		  ./utils.c
-
-
 
 OBJS	= $(SRCS:.c=.o)
 RM		= rm -f
 CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
 
 .c.o :
-	$(CC) -g -c -o $@ $<
+	$(CC) $(CFLAGS) -pthread -c -o $@ $<
 
 $(NAME) : $(OBJS)
-	$(CC) -lpthread -o $@ $^
-#	$(CC) -fsanitize=address -g2 -lpthread -o $@ $^
+	$(CC) $(CFLAGS) -pthread -o $@ $^
 
 all : $(NAME)
 
