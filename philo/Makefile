@@ -2,6 +2,7 @@ NAME	= philo
 
 SRCS	= ./main.c \
 		  ./ft_usleep.c \
+		  ./print.c \
 		  ./utils.c
 
 
